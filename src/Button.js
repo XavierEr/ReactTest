@@ -6,7 +6,7 @@ class Button extends Component {
   }
 
   handleClick() {
-    this.props.onButtonClick();
+    // this.props.onButtonClick();
   }
 
   render() {
