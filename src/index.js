@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import HelloMessage from './HelloMessage';
+import List from './List';
 
 ReactDOM.render(
-  <HelloMessage name="John" />,
+  <List />,
   document.getElementById('app')
 );
