@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import CustomerDetails from './CustomerDetails';
 
-import css from './Customer.css';
-
 class Customer extends Component {
   constructor(props) {
     super(props);
