@@ -5,57 +5,55 @@ import Customer from './Customer';
 class List extends Component {
   constructor(props) {
     super(props);
-    this.state = { customers: [] };
+    var self = this;
+    self.state = { customers: [] };
   }
 
   componentDidMount() {
-    this.setState({
-      customers: [
-        {
-          "id": "C000001",
-          "type": "customers",
-          "attributes": {
-            "customer-relationship-id": "QAZWSX001RT",
-            "customer-name": "Michael",
-            "accounts": [
-              {
-                "account-id": "A000001"
-              },
-              {
-                "account-id": "A000002"
-              }
-            ]
-          },
-          "links": {
-            "self": "http://127.0.0.1:8080/retail/api/v3/customers/C000001"
-          }
-        },
-        {
-          "id": "C000002",
-          "type": "customers",
-          "attributes": {
-            "customer-relationship-id": "QAZWSX002RT",
-            "customer-name": "Queenie",
-            "accounts": [
-              {
-                "account-id": "A000003"
-              },
-              {
-                "account-id": "A000004"
-              },
-              {
-                "account-id": "A000005"
-              },
-              {
-                "account-id": "A000006"
-              },
-            ]
-          },
-          "links": {
-            "self": "http://127.0.0.1:8080/retail/api/v3/customers/C000002"
-          }
-        }
-      ]
+    var self = this;
+
+    Promise.all([self.getCustomers(), self.getAccounts()])
+      .then(([customers, accounts]) => {
+        var customerDetails = customers.map(customer => {
+          var customerDetail = {
+            id: customer.id,
+            name: customer.attributes['customer-name']
+          };
+
+          var accountDetails = customer.attributes.accounts.map(accountId => {
+            var account = accounts.find(account => {
+              return account.id === accountId['account-id'];
+            })
+            return account;
+          })
+
+          customerDetail.accountDetails = accountDetails;
+
+          return customerDetail;
+        });
+
+        console.log(customerDetails);
+        self.setState({ customers: customerDetails });
+      });
+  }
+
+  getCustomers() {
+    return fetch('/api/customers', {
+      method: 'GET'
+    }).then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+    });
+  }
+
+  getAccounts() {
+    return fetch('/api/accounts', {
+      method: 'GET'
+    }).then(response => {
+      if (response.ok) {
+        return response.json();
+      }
     });
   }
 

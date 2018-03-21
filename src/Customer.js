@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 
-import CustomerDetails from './CustomerDetails';
+import Account from './Account';
 
 class Customer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>
-        <div className="customer-id">{this.props.info.id}</div>
-        <CustomerDetails accounts={this.props.info.attributes.accounts}/>
+        <div>{this.props.info.id} - {this.props.info.name}</div>
+        {
+          this.props.info.accountDetails.map((item, i) => {
+            return <Account info={item} />
+          })
+        }
       </div>
     );
   }
