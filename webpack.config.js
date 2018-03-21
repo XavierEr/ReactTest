@@ -11,7 +11,7 @@ const config = {
       './src/index.js',
       // the entry point of our app
     ],
-    vendor: ['react', 'react-dom']
+    vendor: ['react', 'react-dom', 'bootstrap']
   },
   output: {
     filename: '[name].bundle.js',

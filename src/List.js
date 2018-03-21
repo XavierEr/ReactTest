@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import Customer from './Customer';
 
+import './list.css';
+
 class List extends Component {
   constructor(props) {
     super(props);
@@ -31,8 +33,6 @@ class List extends Component {
 
           return customerDetail;
         });
-
-        console.log(customerDetails);
         self.setState({ customers: customerDetails });
       });
   }
@@ -59,7 +59,7 @@ class List extends Component {
 
   render() {
     return (
-      <div>
+      <div className="padding">
         {
           this.state.customers.map((item, i) => {
             return <Customer info={item} />;
